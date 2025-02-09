@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseFrame</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            position: relative;
+            z-index: 1;
+            background-color: rgba(26, 26, 26, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            width: 600px;
+        }
+        input, textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+        textarea {
+            height: 150px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background-color: #333;
+            color: #ffffff;
+            transition: box-shadow 0.3s ease;
+            margin-right: 10px;
+        }
+        button:hover {
+            box-shadow: 0 0 10px 5px #4b0082;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>PulseFrame</h1>
+        <input type="text" id="urlInput" placeholder="Enter URL">
+        <textarea id="htmlInput" placeholder="Enter HTML content" rows="10"></textarea>
+        <button onclick="generateDataURLForURL()">Open URL</button>
+        <button onclick="generateDataURLForHTML()">Open HTML</button>
+    </div>
+
+    <script>
+        function generateDataURLForURL() {
+            var url = document.getElementById("urlInput").value;
+            var iframe = document.createElement("iframe");
+            iframe.src = url;
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.border = "none";
+            var container = document.createElement("div");
+            container.style.position = "fixed";
+            container.style.top = "0";
+            container.style.left = "0";
+            container.style.width = "100%";
+            container.style.height = "100%";
+            container.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+            container.style.zIndex = "9999";
+            container.style.display = "flex";
+            container.style.justifyContent = "center";
+            container.style.alignItems = "center";
+            container.appendChild(iframe);
+            document.body.appendChild(container);
+        }
+
+        function generateDataURLForHTML() {
+            var html = document.getElementById("htmlInput").value;
+            var iframe = document.createElement("iframe");
+            iframe.src = "data:text/html;base64," + btoa(html);
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.border = "none";
+            var container = document.createElement("div");
+            container.style.position = "fixed";
+            container.style.top = "0";
+            container.style.left = "0";
+            container.style.width = "100%";
+            container.style.height = "100%";
+            container.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+            container.style.zIndex = "9999";
+            container.style.display = "flex";
+            container.style.justifyContent = "center";
+            container.style.alignItems = "center";
+            container.appendChild(iframe);
+            document.body.appendChild(container);
+        }
+    </script>
+</body>
+</html>
