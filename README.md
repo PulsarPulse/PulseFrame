@@ -11,7 +11,7 @@ PulsarFrame can be used a couple of ways to use this.
 3. if you can, download the html code and open the link file.
 
 
-> [tip!]
+> [!TIP]
 > If the "Open Url" button makes the webpage blocked, Click the open in fullscreen button to see it in about:blank !
 ### Link:    
 ```
