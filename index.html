@@ -48,6 +48,7 @@
             color: #ffffff;
             transition: box-shadow 0.3s ease;
             margin-right: 10px;
+            height: 48px; /* Ensure buttons have the same height */
         }
         button:hover {
             box-shadow: 0 0 10px 5px #4b0082;
@@ -94,6 +95,8 @@
         <textarea id="htmlInput" placeholder="Enter HTML content" rows="10"></textarea>
         <button onclick="generateDataURLForURL()">Open URL</button>
         <button onclick="generateDataURLForHTML()">Open HTML</button>
+        <button onclick="openURLInNewWindow()">Fullscreen URL</button>
+        <button onclick="openHTMLInNewWindow()">Fullscreen HTML</button>
     </div>
     <div class="preview-container" id="previewContainer">
         <button class="close-button" onclick="closePreview()">Close</button>
@@ -122,6 +125,86 @@
                 previewContainer.style.display = "flex";
             } else {
                 alert('No HTML content provided.');
+            }
+        }
+
+        function openURLInNewWindow() {
+            var url = document.getElementById("urlInput").value.trim();
+            if (url) {
+                const newWindow = window.open('about:blank', '_blank');
+                newWindow.document.open();
+                newWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>URL Viewer</title>
+                        <style>
+                            body {
+                                margin: 0;
+                                padding: 0;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 100vh;
+                                background-color: #f4f4f4;
+                            }
+                            iframe {
+                                width: 100%;
+                                height: 100%;
+                                border: none;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <iframe src="${url.startsWith('http://') || url.startsWith('https://') ? url : 'http://' + url}"></iframe>
+                    </body>
+                    </html>
+                `);
+                newWindow.document.close();
+            } else {
+                alert('No URL provided.');
+            }
+        }
+
+        function openHTMLInNewWindow() {
+            var html = document.getElementById("htmlInput").value.trim();
+            if (html) {
+                const newWindow = window.open('about:blank', '_blank');
+                newWindow.document.open();
+                newWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>HTML Viewer</title>
+                        <style>
+                            body {
+                                margin: 0;
+                                padding: 0;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 100vh;
+                                background-color: #f4f4f4;
+                            }
+                            iframe {
+                                width: 100%;
+                                height: 100%;
+                                border: none;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <iframe srcdoc="${html.replace(/"/g, '&quot;').replace(/'/g, '&#39;')}"></iframe>
+                    </body>
+                    </html>
+                `);
+                newWindow.document.close();
+            } else {
+                alert('No HTML content to display.');
             }
         }
 
